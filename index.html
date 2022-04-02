@@ -10,7 +10,9 @@
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
   <link rel="stylesheet" href="styles/acesso.css">
 
- 
+  <!-- ---------------------- lógica aplicada no login ----------------------- -->
+  <!--  <script src="/scripts/utils.js"></script> -->
+
 </head>
 
 <body>
@@ -28,14 +30,19 @@
 
       <label>
         Email:
-        <input id="inputEmail" type="email" required>
-      </label>
-      <label>
-        Senha:
-        <input id="inputPassword" type="password" minlength="5" required>
+        <input id="inputEmail" type="email" required >
+        <div class="error" id="errorEmail">
+        </div>
       </label>
 
-      <button type="submit" id ="submitBtn">Acessar</button>
+      <label>
+        Senha:
+        <input id="inputPassword" class="input" type="password" minlength="6" required >
+        <div class="error" id="errorSenha">
+        </div>
+      </label>
+
+      <button type="submit" id="submitBtn">Acessar</button>
 
     </form>
     <div class="ingressar">
@@ -43,11 +50,7 @@
     </div>
   </div>
 
- <!-- ---------------------- lógica aplicada no login ----------------------- -->
-  
-
-  <script src="./scripts/utils.js"></script>
-  <script src="./scripts/index.js"></script>
+  <script src="/scripts/index.js"></script>
 </body>
 
 </html>
