@@ -89,3 +89,12 @@ button {
   align-items: center;
   justify-content: center;
 }
+
+input::placeholder{
+  color: red;
+}
+
+#message {
+  display: flex;
+  color: red;
+}
