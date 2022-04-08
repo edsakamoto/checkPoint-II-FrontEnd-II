@@ -1,8 +1,12 @@
-let requestConfig = {
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-    }
+let buttonLogout = document.querySelector('#closeApp');
+
+
+function logoutUser() {
+    localStorage.clear();
+    location.href = './index.html';
 }
 
-fetch('https://ctd-todo-api.herokuapp.com/v1/users/getMe', requestConfig);
+buttonLogout.addEventListener('click', event => {
+    event.preventDefault();
+    logoutUser();
+});

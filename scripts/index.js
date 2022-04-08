@@ -1,3 +1,37 @@
-import { inputReference, validate, matchPassword } from "./validate.js";
-import { buttonLoginRef, passwordRef, emailRef } from "./login.js";
-import { buttonCreateRef, firstNameRef, lastNameRef, emailRegisterRef } from "./register.js";
+//login
+let emailLogin = document.querySelector("#inputEmail");
+let passwordLogin = document.querySelector("#inputPassword");
+let buttonLogin = document.querySelector("button");
+let errorMsg = document.querySelector('#errorMsg');
+
+buttonLogin.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  let userData = {
+    email: emailLogin.value,
+    password: passwordLogin.value
+  };
+
+  const requestHeaders = {
+    "Content-Type": "application/json",
+  };
+
+  const requestConfig = {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: requestHeaders,
+  };
+
+  fetch("https://ctd-todo-api.herokuapp.com/v1/users/login", requestConfig)
+  .then(resp => {
+      if (resp.ok){
+          resp.json().then(data => {
+          localStorage.setItem('tokenlogin', data.jwt);
+          location.href = "./tarefas.html";
+        })
+      } else {
+          errorMsg.innerHTML = "E-mail e/ou senha incorretos";
+      }
+  })
+  
+});
