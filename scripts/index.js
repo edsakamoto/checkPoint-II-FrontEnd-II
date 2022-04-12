@@ -26,7 +26,8 @@ buttonLogin.addEventListener("click", (event) => {
   .then(resp => {
       if (resp.ok){
           resp.json().then(data => {
-          localStorage.setItem('tokenlogin', data.jwt);
+          localStorage.setItem('token', data.jwt);
+          console.log(data);
           location.href = "./tarefas.html";
         })
       } else {

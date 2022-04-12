@@ -52,11 +52,13 @@ button.addEventListener("click", (event) => {
 
   fetch("https://ctd-todo-api.herokuapp.com/v1/users", requestConfig).then(
     (response) => {
-      response.json().then((data) => {
-        console.log(data);
-        localStorage.setItem("token", data.jwt);
-        location.assign('./index.html');
-      });
+      if (response.ok) {
+        response.json().then((data) => {
+          console.log(data);
+          localStorage.setItem("token", data.jwt);
+          // location.assign("./index.html");
+        });
+      }
     }
   );
 });
