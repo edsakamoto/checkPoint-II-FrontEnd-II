@@ -20,7 +20,7 @@
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+  <script src="./scripts/tasks.js" defer="defer"></script>
 
   <title>To-Do App</title>
 </head>
@@ -32,18 +32,18 @@
     </nav>
 
     <div class="user-info">
-      <p>Nome usuário</p>
+      <p id="userName"></p>
       <div class="user-image"></div>
-      <p id="closeApp">Finalizar sessão</i>
-      </p>
+      <button id="closeApp">Finalizar sessão</button>
+      
     </div>
   </header>
 
 
   <form class="nova-tarefa">
     <div class="not-done "></div>
-    <input id="novaTarea" type="text" placeholder="Nova tarefa">
-    <button type="submit">
+    <input id="novaTarefa" type="text" placeholder="Nova tarefa">
+    <button type="submit" id="newTask">
       <img src="./assets/plus.png" alt="Adicionar uma nova tarefa">
     </button>
   </form>

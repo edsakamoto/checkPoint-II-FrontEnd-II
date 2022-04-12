@@ -30,8 +30,14 @@ a {
 .user-info .user-image {
   height: 2em;
   width: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: 600;
   border-radius: 50%;
   background-color: white;
+  color: rgb(127, 0, 181);
   opacity: .4;
   margin-left: .7em;
 }

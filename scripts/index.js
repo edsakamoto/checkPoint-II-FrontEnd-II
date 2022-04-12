@@ -1,25 +1,38 @@
-let submitBtnReference = document.querySelector("#submitBtn");
-let inputEmailBtnReference = document.querySelector("#inputEmail");
-let inputPasswordBtnReference = document.querySelector("#inputPassword");
+//login
+let emailLogin = document.querySelector("#inputEmail");
+let passwordLogin = document.querySelector("#inputPassword");
+let buttonLogin = document.querySelector("button");
+let errorMsg = document.querySelector('#errorMsg');
 
-let autenticacao = {
-    email: "",
-    password: "" 
-}
+buttonLogin.addEventListener("click", (event) => {
+  event.preventDefault();
 
+  let userData = {
+    email: emailLogin.value,
+    password: passwordLogin.value
+  };
 
-submitBtnReference.addEventListener('click',function(event){
-     event.preventDefault();
-     console.log(autenticacao)
+  const requestHeaders = {
+    "Content-Type": "application/json",
+  };
 
-     autenticacao.email = inputEmailBtnReference.value.trim()
-     autenticacao.password = inputPasswordBtnReference.value.trim()
+  const requestConfig = {
+    method: "POST",
+    body: JSON.stringify(userData),
+    headers: requestHeaders,
+  };
 
-     console.log(autenticacao.email)
-     console.log(autenticacao.password)
-    
-    
-
-})
-
-/*Parte lógica do signup.html*/
+  fetch("https://ctd-todo-api.herokuapp.com/v1/users/login", requestConfig)
+  .then(resp => {
+      if (resp.ok){
+          resp.json().then(data => {
+          localStorage.setItem('token', data.jwt);
+          console.log(data);
+          location.href = "./tarefas.html";
+        })
+      } else {
+          errorMsg.innerHTML = "E-mail e/ou senha incorretos";
+      }
+  })
+  
+});

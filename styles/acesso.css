@@ -2,6 +2,7 @@
 
 body{
   display: flex;
+  background: var(--bg-full);
 }
 
 h1 {
@@ -18,7 +19,7 @@ form {
   align-items: center;
   flex-direction: column;
   margin: 2em auto;
-  box-shadow: 0 5px 5px lightgrey;
+  box-shadow: 0 5px 5px rgb(96, 96, 96);
   padding: 1em 2.5em;
   box-sizing: border-box;
 }
@@ -71,9 +72,14 @@ button {
 .ingressar{
   text-align: center;
 }
+
+.ingressar a {
+  text-decoration: none;
+  color: darkblue;
+}
+
 .left{
   width: 50%;  
-  background-color: white;
   text-align: center;
   display: flex;
   align-items: center;
@@ -88,4 +94,13 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+input::placeholder{
+  color: red;
+}
+
+#errorMsg {
+  display: flex;
+  color: red;
 }
