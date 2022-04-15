@@ -99,6 +99,7 @@ a {
   width: 100%;
 }
 
+
 .not-done {
   width: 2em;
   height: 2em;
@@ -126,7 +127,7 @@ a {
   margin-bottom: 1.5em;
 }
 
-.tarefa .not-done {
+.tarefa .not-done  {
   position: relative;
   height: 1.5em;
   width: 1.5em;
@@ -241,4 +242,16 @@ a {
 @keyframes trasparencia {
   0%{ opacity: 0.5;}
   100%{ opacity: 0.8;}
+}
+
+img{
+  height: 26px;
+  width: 26px;
+  margin-left: 10px;  
+  opacity: 0.3;
+}
+
+img:hover{
+  opacity: 1;
+  transition: 0.2s;
 }
