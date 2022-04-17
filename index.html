@@ -9,7 +9,6 @@
 
   <!-- ---------------- estilos compartilhados entre login e signup ---------------- -->
   <link rel="stylesheet" href="styles/acesso.css">
-
  
 </head>
 
@@ -25,17 +24,20 @@
       </div>
       <h1>Acessar</h1>
 
-
-      <label>
+      <!-- <div class="controlador"> -->
+      <label class="controlador">
         Email:
         <input id="inputEmail" type="email" required>
+        <small>Campo obrigatório</small>
       </label>
-      <label>
+      
+      <label class="controlador">
         Senha:
-        <input id="inputPassword" type="password" minlength="5" required>
-      </label>
+        <input id="inputPassword" type="password" required minlength="5" >
+        <small>Campo obrigatório</small>
+      </label>    
 
-      <button type="submit" id ="submitBtn">Acessar</button>
+      <button type="submit" id ="submitBtn" disabled>Acessar</button>
 
     </form>
     <div class="ingressar">

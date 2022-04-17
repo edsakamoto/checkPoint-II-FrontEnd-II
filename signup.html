@@ -27,28 +27,33 @@
         <p>To-Do App</p>
       </div>
 
-      <label>
+      <label class="controlador">
         Nome:
-        <input type="text" id="firstName">
+        <input type="text" id="firstName" required minlength="3">
+        <small>Campo obrigatório</small>
       </label>
-      <label >
+      <label class="controlador">
         Sobrenome:
-        <input type="text" id="lastName">
+        <input type="text" id="lastName" required minlength="4">
+        <small>Campo obrigatório</small>
       </label>
-      <label>
+      <label class="controlador"> 
         Email:
-        <input type="text" id="emailCadastro">
+        <input type="email" id="emailCadastro" required>
+        <small>Campo obrigatório</small>
       </label>
-      <label>
+      <label class="controlador">
         Senha:
-        <input type="password" id="passwordCadastro">
+        <input type="password" id="passwordCadastro" required minlength="5">
+        <small>Campo obrigatório</small>
       </label>
-      <label>
+      <label class="controlador">
         Repetir senha:
-        <input type="password">
+        <input type="password" id="repetirPassword" required minlength="5">
+        <small>Campo obrigatório</small>
       </label>
 
-      <button id="createUser">Criar conta</button>
+      <button id="createUser" disabled>Criar conta</button>
 
     </form>
     <div class="ingressar">
