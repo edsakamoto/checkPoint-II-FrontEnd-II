@@ -7,6 +7,11 @@ header {
   margin-bottom: 2em;
 }
 
+.dark header {
+  background: linear-gradient(45deg, #35009f, #5b08c8);
+  box-shadow: 0px 3px 5px rgb(0, 0, 0);
+}
+
 a {
   display: block;
   width: fit-content;
@@ -42,6 +47,20 @@ a {
   margin-left: .7em;
 }
 
+.switchView {
+  margin-left: .7em;
+  cursor: pointer;
+}
+
+.switchView:hover {
+  transform: scale(1.3);
+  transition: ease-in 150ms;
+}
+
+.switchView img {
+  height: 1.5em;
+}
+
 #closeApp{
   margin-left: 15px;
   font-size: .7em;
@@ -67,6 +86,11 @@ a {
   z-index: 20;
 }
 
+.dark .nova-tarefa {
+  background-color: rgb(63, 63, 63);
+  box-shadow: 2px 2px 10px rgb(0, 0, 0);
+}
+
 .nova-tarefa input[type=text] {
   border: none;
   flex: 1;
@@ -74,6 +98,11 @@ a {
   border-radius: 0;
   padding: .3em;
   font-size: 1.1em;
+}
+
+.dark .nova-tarefa input[type=text] {
+  background-color: #2b2b2b;
+  color: white;
 }
 
 .nova-tarefa input:focus {
@@ -94,6 +123,10 @@ a {
   margin-right: 1em;
   opacity: .5;
   cursor: pointer;
+}
+
+.dark #newTask img {
+  filter: invert(1);
 }
 
 .nova-tarefa button:hover {
@@ -143,6 +176,10 @@ a {
   transition: background-color 200ms linear;
 }
 
+.dark .tarefa .not-done {
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+
 .tarefa .not-done:hover {
   background-color: var(--secondary);
 }
@@ -179,9 +216,18 @@ a {
   box-shadow: 2px 2px 5px lightgrey;
 }
 
+.dark .tarefa .descricao {
+  background-color: rgb(61, 61, 61);
+  box-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+
 .tarefa .nome {
   color: rgb(95, 95, 95);
   flex-grow: 1;
+}
+
+.dark .tarefa .nome, .dark .tarefa .timestamp {
+  color: whitesmoke;
 }
 
 .tarefa .timestamp {
@@ -199,6 +245,10 @@ a {
   background: transparent;
   cursor: pointer;
   position: relative;
+}
+
+.dark #buttonDelete img, .dark #buttonEdit img {
+  filter: invert(1);
 }
 
 .taskButtons {
@@ -230,6 +280,12 @@ a {
   z-index: 20;
 }
 
+.dark .titulo-terminadas {
+  background-color: rgb(63, 63, 63);
+  box-shadow: 3px 3px 5px rgb(0, 0, 0);
+  color: whitesmoke;
+}
+
 .tarefas-terminadas {
   display: flex;
   flex-direction: column;
@@ -248,6 +304,10 @@ a {
 
 .tarefas-terminadas .tarefa .descricao {
   background-color: rgb(228, 228, 228);
+}
+
+.dark .tarefas-terminadas .tarefa .descricao {
+  background-color: #2e2e2e;
 }
 
 .tarefas-terminadas .tarefa .descricao .nome {

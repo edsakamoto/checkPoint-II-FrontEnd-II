@@ -7,10 +7,19 @@ let button = document.querySelector("#buttonRegister");
 let errorMsg = document.querySelector("#errorMsg");
 let dataValues = [firstName, lastName, email];
 
+
 function testPassword(a, b) {
   if (b.value !== a.value) {
-    (errorMsg.innerHTML = "As senhas não correspondem");
-    location.reload();
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'As senhas não correspondem!'
+    }).then( result => {
+      if(result.isConfirmed){
+        location.reload();
+      }
+    });
+    
   } else if (a.value == "") {
     return (a.placeholder = "Insira uma senha");
   }

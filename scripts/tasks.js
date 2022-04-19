@@ -6,7 +6,25 @@ let userNameRef = document.getElementById("userName");
 let userImageRef = document.querySelector(".user-image");
 let baseUrl = "https://ctd-todo-api.herokuapp.com/v1";
 let skeletonRef = document.querySelector("#skeleton");
+let switchViewRef = document.querySelector('.switchView');
 
+//---------------> Toggle dark/light mode
+
+switchViewRef.addEventListener('click', event => {
+  event.preventDefault();
+  document.body.classList.toggle('dark');
+  document.getElementsByTagName('header').classList.toggle('dark');
+  if (document.body.classList == 'dark') {
+    switchViewRef.innerHTML = `
+  <img src="./assets/sunny.png" alt="light mode">
+  `;
+  } else {
+    switchViewRef.innerHTML = `
+  <img src="./assets/night.png" alt="dark mode">
+  `
+  }
+  
+})
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -29,7 +47,7 @@ fetch("https://ctd-todo-api.herokuapp.com/v1/users/getMe", getMeConfig).then(
     if (response.ok) {
       response.json().then(data => {
         userNameRef.innerHTML = `Olá, ${data.firstName} ${data.lastName}!`;
-        userImageRef.innerHTML = data.firstName[0] + data.lastName[0];
+        userImageRef.innerHTML = (data.firstName[0] + data.lastName[0]).toUpperCase();
         localStorage.setItem("idUser", data.id);
         localStorage.setItem("firstNameUser", data.firstName);
         localStorage.setItem("lastNameUser", data.lastName);
@@ -58,7 +76,8 @@ buttonLogout.addEventListener("click", event => {
     title: 'Deseja mesmo sair?',
     showCancelButton: true,
     cancelButtonText: "Cancelar",
-    showConfirmButton: true
+    showConfirmButton: true,
+    confirmButtonText: "Sim!"
   }).then( result => {
     if(result.isConfirmed){
       logoutUser();
@@ -138,7 +157,10 @@ function getList() {
         const formatDate = creationDate.toLocaleDateString("pt-BR", {
           day: "2-digit",
           month: "2-digit",
-          year: "numeric"
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
         });
 
         if (tasks[task].completed) {
@@ -147,7 +169,7 @@ function getList() {
         <div class="not-done" id="finishTask" onclick="finishTask(${tasks[task].id}, false)"></div>
         <div class="descricao">
         <p class="nome">${tasks[task].description}</p>
-          <p class="timestamp">Criada em: ${formatDate}</p>
+          <p class="timestamp">Concluída em: ${formatDate}</p>
           <div class="taskButtons">
             <button type="submit" id="buttonDelete" onclick="deleteTask(${tasks[task].id})"><img src="assets/delete.png" alt="delete task"></button>
           </div>
