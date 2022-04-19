@@ -7,9 +7,19 @@ let button = document.querySelector("#buttonRegister");
 let errorMsg = document.querySelector("#errorMsg");
 let dataValues = [firstName, lastName, email];
 
+
 function testPassword(a, b) {
   if (b.value !== a.value) {
-    return (errorMsg.innerHTML = "As senhas não correspondem");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'As senhas não correspondem!'
+    }).then( result => {
+      if(result.isConfirmed){
+        location.reload();
+      }
+    });
+    
   } else if (a.value == "") {
     return (a.placeholder = "Insira uma senha");
   }
@@ -56,9 +66,20 @@ button.addEventListener("click", (event) => {
         response.json().then((data) => {
           console.log(data);
           localStorage.setItem("token", data.jwt);
-          // location.assign("./index.html");
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Conta criada com sucesso!',
+            showConfirmButton: true
+          }).then( result => {
+            if(result.isConfirmed){
+              location.assign("./index.html");
+            }
+          });
+        
         });
       }
     }
   );
 });
+

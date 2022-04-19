@@ -1,3 +1,4 @@
+# [GitHub Pages](https://edsakamoto.github.io/checkPoint-II-FrontEnd-II/)
 # Estrutura do TO DO App
 Ao visualizar os diretórios do nosso projeto, encontramos a seguinte organização:
 - Assets: aqui vamos encontrar os recursos gráficos que vamos implementar em nossa interface
