@@ -13,7 +13,7 @@ let switchViewRef = document.querySelector('.switchView');
 switchViewRef.addEventListener('click', event => {
   event.preventDefault();
   document.body.classList.toggle('dark');
-  document.getElementsByTagName('header').classList.toggle('dark');
+  
   if (document.body.classList == 'dark') {
     switchViewRef.innerHTML = `
   <img src="./assets/sunny.png" alt="light mode">
