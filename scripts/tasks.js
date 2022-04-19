@@ -52,7 +52,19 @@ fetch("https://ctd-todo-api.herokuapp.com/v1/users/getMe", getMeConfig).then(
 
 buttonLogout.addEventListener("click", event => {
   event.preventDefault();
-  logoutUser();
+  Swal.fire({
+    position: 'center',
+    icon: 'question',
+    title: 'Deseja mesmo sair?',
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    showConfirmButton: true
+  }).then( result => {
+    if(result.isConfirmed){
+      logoutUser();
+    }
+  });
+  
 });
 
 //---------------> Mostrar lista ao carregar a página
@@ -170,7 +182,7 @@ function deleteTask(id) {
     text: "Esta ação não pode ser desfeita",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#7066e0",
     cancelButtonColor: "#d33",
     cancelButtonText: "Cancelar",
     confirmButtonText: "Sim, quero excluir!"

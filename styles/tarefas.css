@@ -181,12 +181,14 @@ a {
 
 .tarefa .nome {
   color: rgb(95, 95, 95);
+  flex-grow: 1;
 }
 
 .tarefa .timestamp {
   font-size: .9em;
   color: rgb(134, 134, 134);
-  flex-grow: 0;
+  flex-grow: 2;
+  text-align: right;
 }
 
 #buttonDelete img, #buttonEdit img {
@@ -203,6 +205,7 @@ a {
   width: 8em;
   display: flex;
   justify-content: space-evenly;
+  flex-grow: -1;
 }
 
 #buttonDelete:hover, #buttonEdit:hover{

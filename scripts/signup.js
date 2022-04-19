@@ -9,7 +9,8 @@ let dataValues = [firstName, lastName, email];
 
 function testPassword(a, b) {
   if (b.value !== a.value) {
-    return (errorMsg.innerHTML = "As senhas não correspondem");
+    (errorMsg.innerHTML = "As senhas não correspondem");
+    location.reload();
   } else if (a.value == "") {
     return (a.placeholder = "Insira uma senha");
   }
@@ -56,9 +57,20 @@ button.addEventListener("click", (event) => {
         response.json().then((data) => {
           console.log(data);
           localStorage.setItem("token", data.jwt);
-          // location.assign("./index.html");
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Conta criada com sucesso!',
+            showConfirmButton: true
+          }).then( result => {
+            if(result.isConfirmed){
+              location.assign("./index.html");
+            }
+          });
+        
         });
       }
     }
   );
 });
+
