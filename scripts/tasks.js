@@ -249,7 +249,12 @@ function deleteTask(id) {
       fetch(`${baseUrl}/tasks/${id}`, deleteConfig).then(response => {
         response.ok ? getList() : alert("Error");
       });
-      Swal.fire("Excluída!", "A tarefa foi excluída.", "success");
+      Swal.fire({
+        title: "Excluída!",
+        text: "A tarefa foi excluída.",
+        icon: "success",
+        timer: 1000
+      });
     }
   });
 }
@@ -299,7 +304,12 @@ function editTask(id, description) {
     allowOutsideClick: () => !Swal.isLoading()
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire("Pronto!", "A tarefa foi editada.", "success");
+      Swal.fire({
+        title: "Pronto!",
+        text: "A tarefa foi editada.",
+        icon: "success",
+        timer: 1000
+      });
     }
   });
 }
