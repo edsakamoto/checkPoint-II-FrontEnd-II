@@ -8,23 +8,29 @@ let baseUrl = "https://ctd-todo-api.herokuapp.com/v1";
 let skeletonRef = document.querySelector("#skeleton");
 let switchViewRef = document.querySelector('.switchView');
 
+
 //---------------> Toggle dark/light mode
 
 switchViewRef.addEventListener('click', event => {
   event.preventDefault();
   document.body.classList.toggle('dark');
-  
+
+
   if (document.body.classList == 'dark') {
+    localStorage.setItem('darkmode', 'true');
     switchViewRef.innerHTML = `
   <img src="./assets/sunny.png" alt="light mode">
   `;
+
   } else {
+    localStorage.setItem('darkmode', 'false');
     switchViewRef.innerHTML = `
   <img src="./assets/night.png" alt="dark mode">
-  `
+  `;
   }
-  
-})
+
+});
+
 
 const requestHeaders = {
   "Content-Type": "application/json",
@@ -54,7 +60,7 @@ fetch("https://ctd-todo-api.herokuapp.com/v1/users/getMe", getMeConfig).then(
         localStorage.setItem("emailUser", data.email);
       });
     } else {
-      
+
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -78,17 +84,34 @@ buttonLogout.addEventListener("click", event => {
     cancelButtonText: "Cancelar",
     showConfirmButton: true,
     confirmButtonText: "Sim!"
-  }).then( result => {
-    if(result.isConfirmed){
+  }).then(result => {
+    if (result.isConfirmed) {
       logoutUser();
     }
   });
-  
+
 });
 
 //---------------> Mostrar lista ao carregar a página
 
 getList();
+
+//---------------> Manter o tema ao atualizar a página
+
+switch (localStorage.getItem('darkmode')){
+  case 'true':
+    document.body.classList.toggle('dark');
+    switchViewRef.innerHTML = `
+  <img src="./assets/sunny.png" alt="light mode">
+  `;
+    break;
+  case 'false':
+    document.body.classList.toggle('');
+    switchViewRef.innerHTML = `
+  <img src="./assets/night.png" alt="dark mode">
+  `;
+    break;
+}
 
 //---------------> Nova tarefa
 
@@ -137,6 +160,15 @@ function getList() {
     response.json().then(tasks => {
       let taskList = document.querySelector(".tarefas-pendentes");
       let finishedTaskList = document.querySelector(".tarefas-terminadas");
+      let tasksFiltered = tasks.sort((a, b) => {
+        if (a.id > b.id){
+          return 1;
+        }
+        if (a.id < b.id) {
+          return -1;
+        }
+        return 0;
+      });
 
       if (tasks.length === 0) {
         if (window.localStorage) {
@@ -150,46 +182,46 @@ function getList() {
       } else {
         finishedTaskList.innerHTML = "";
         taskList.innerHTML = "";
-      }
+        
+        for (let task in tasksFiltered) {
+          const creationDate = new Date(tasks[task].createdAt);
+          const formatDate = creationDate.toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          });
 
-      for (let task in tasks) {
-        const creationDate = new Date(tasks[task].createdAt);
-        const formatDate = creationDate.toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit"
-        });
-
-        if (tasks[task].completed) {
-          finishedTaskList.innerHTML += `
-          <li class="tarefa">
-        <div class="not-done" id="finishTask" onclick="finishTask(${tasks[task].id}, false)"></div>
-        <div class="descricao">
-        <p class="nome">${tasks[task].description}</p>
-          <p class="timestamp">Concluída em: ${formatDate}</p>
-          <div class="taskButtons">
-            <button type="submit" id="buttonDelete" onclick="deleteTask(${tasks[task].id})"><img src="assets/delete.png" alt="delete task"></button>
+          if (tasks[task].completed) {
+            finishedTaskList.innerHTML += `
+            <li class="tarefa">
+          <div class="not-done" id="finishTask" onclick="finishTask(${tasks[task].id}, false)"></div>
+          <div class="descricao">
+          <p class="nome">${tasks[task].description}</p>
+            <p class="timestamp">Concluída em: ${formatDate}</p>
+            <div class="taskButtons">
+              <button type="submit" id="buttonDelete" onclick="deleteTask(${tasks[task].id})"><img src="assets/delete.png" alt="delete task"></button>
+            </div>
           </div>
-        </div>
-      </li>
-          `;
-        } else {
-          taskList.innerHTML += `
-          <li class="tarefa">
-        <div class="not-done" id="finishTask" onclick="finishTask(${tasks[task].id}, true)"></div>
-        <div class="descricao">
-        <p class="nome">${tasks[task].description}</p>
-          <p class="timestamp">Criada em: ${formatDate}</p>
-          <div class="taskButtons">
-            <button type="submit" id="buttonEdit" onclick="editTask(${tasks[task].id})"><img src="assets/edit.png" alt="edit task"></button>
-            <button type="submit" id="buttonDelete" onclick="deleteTask(${tasks[task].id})"><img src="assets/delete.png" alt="delete task"></button>
+        </li>
+            `;
+          } else {
+            taskList.innerHTML += `
+            <li class="tarefa">
+          <div class="not-done" id="finishTask" onclick="finishTask(${tasks[task].id}, true)"></div>
+          <div class="descricao">
+          <p class="nome">${tasks[task].description}</p>
+            <p class="timestamp">Criada em: ${formatDate}</p>
+            <div class="taskButtons">
+              <button type="submit" id="buttonEdit" onclick="editTask(${tasks[task].id})"><img src="assets/edit.png" alt="edit task"></button>
+              <button type="submit" id="buttonDelete" onclick="deleteTask(${tasks[task].id})"><img src="assets/delete.png" alt="delete task"></button>
+            </div>
           </div>
-        </div>
-      </li>
-          `;
+        </li>
+            `;
+          }
         }
       }
     });
@@ -217,7 +249,12 @@ function deleteTask(id) {
       fetch(`${baseUrl}/tasks/${id}`, deleteConfig).then(response => {
         response.ok ? getList() : alert("Error");
       });
-      Swal.fire("Excluída!", "A tarefa foi excluída.", "success");
+      Swal.fire({
+        title: "Excluída!",
+        text: "A tarefa foi excluída.",
+        icon: "success",
+        timer: 1000
+      });
     }
   });
 }
@@ -267,7 +304,12 @@ function editTask(id, description) {
     allowOutsideClick: () => !Swal.isLoading()
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire("Pronto!", "A tarefa foi editada.", "success");
+      Swal.fire({
+        title: "Pronto!",
+        text: "A tarefa foi editada.",
+        icon: "success",
+        timer: 1000
+      });
     }
   });
 }

@@ -4,7 +4,6 @@ let email = document.querySelector("#registerEmail");
 let password = document.querySelector("#registerPassword");
 let passwordMatch = document.querySelector("#passwordMatch");
 let button = document.querySelector("#buttonRegister");
-let errorMsg = document.querySelector("#errorMsg");
 let dataValues = [firstName, lastName, email];
 
 
